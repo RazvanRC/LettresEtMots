@@ -25,7 +25,7 @@ public interface Anagrams {
 	    int count = tryWithResources(
 	      () -> new BufferedReader(
 	        new InputStreamReader(
-	        		new FileInputStream("../mots06lettresnewline.txt"), "UTF8")),
+	        		new FileInputStream("../liste_mots_mixnewline.txt"), "UTF8")),
 	      reader -> () -> reader.lines()
 	        .parallel()
 	        .mapToInt(word -> {

@@ -2,9 +2,10 @@ package fr.razvan.replacespaces;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 
@@ -17,16 +18,17 @@ public class RemplaceEspaces {
 	public static void remplaceEspacesAvecNouvelleLigne (String fileIntro, String fileExit) throws IOException {
 		
 		BufferedReader entree = new BufferedReader(new InputStreamReader(
-                new FileInputStream(fileIntro), "UTF8"));
+                new FileInputStream(fileIntro), "UTF-8"));
 
-		FileWriter sortie = new FileWriter(fileExit);
+		OutputStreamWriter sortie = new OutputStreamWriter(new FileOutputStream(fileExit), "UTF-8");
+		//FileWriter sortie = new FileWriter(fileExit);
 		
 		String ligne;
 		StringTokenizer st;
 		String mot = "";
 			
 		while ((ligne = entree.readLine()) != null) {
-			st = new StringTokenizer(ligne, " ,.;:_-+*/\\.;\n\"'{}()=><\t!?");
+			st = new StringTokenizer(ligne, " ,.;:_+*/\\.;\r\n\"'{}()=><\t!?");
 			
 			while (st.hasMoreTokens()) {
 				mot = st.nextToken();

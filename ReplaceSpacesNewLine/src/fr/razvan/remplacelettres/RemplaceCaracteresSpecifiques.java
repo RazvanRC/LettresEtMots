@@ -5,8 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Iterator;
-import java.util.stream.Stream;
+import java.text.Normalizer;
 
 public class RemplaceCaracteresSpecifiques {
 
@@ -17,53 +16,28 @@ public class RemplaceCaracteresSpecifiques {
 		FileWriter sortie = new FileWriter(fileExit);
 		String phrase = new String();
 		// phrase = Normalizer.
-		Stream<String> liste = entree.lines();
-		Iterator<String> it = liste.iterator();
-		while (it.hasNext()) {
-			phrase = it.next();
-			for (int i = 0; i < phrase.length(); i++) {
-				char caractere = ' ';
-				switch (caractere) {
-				case 'â':
-					phrase.replace("â", "a");
-					break;
-				case 'ç':
-					phrase.replace("ç", "c");
-					break;
-				case 'é':
-					phrase.replace("é", "e");
-					break;
-				case 'è':
-					phrase.replace("è", "e");
-					break;
-				case 'ô':
-					phrase.replace("ô", "o");
-					break;
-				case 'î':
-					phrase.replace("î", "i");
-					break;
-				case 'ê':
-					phrase.replace("ê", "e");
-					break;
-				case 'û':
-					phrase.replace("û", "u");
-					break;
-				case 'à':
-					phrase.replace("à", "a");
-					break;
-				case 'ù':
-					phrase.replace("ù", "u");
-					break;
+		// Stream<String> liste = entree.lines();
+		// Iterator<String> it = liste.iterator();
 
-				default:
-					break;
-				}
-
+		while (phrase != null) {
+			phrase = entree.readLine();
+			if(phrase == null){
+				break;
 			}
-			sortie.write(phrase+"/r/n");
-			System.out.println(phrase);
+
+//			System.out.println(phrase);
+//			phrase = phrase.replaceAll("[0-9]", "");
+			phrase = Normalizer.normalize(phrase, Normalizer.Form.NFD);
+			phrase = phrase.replaceAll("\\p{M}", "");
+			
+			// for (int i = 0; i < phrase.length(); i++) {
+			// char caractere = ' ';
+			//
+			// }
+			sortie.write(phrase);
+//			System.out.println(phrase);
 		}
-		
+
 		entree.close();
 		sortie.close();
 
